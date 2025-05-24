@@ -81,3 +81,26 @@ setTimeout(() => {
   scriptElement.src = "./src/js/menu.js";
   document.body.appendChild(scriptElement);
 }, 5000);
+
+// Data pembeli
+const pembeli = {
+  nama: "Nama Pembeli",
+  waktuAmbil: "15.00 WIB", // Atur sesuai kebutuhan dinamis jika mau
+};
+
+// Fungsi buat WhatsApp link dengan pesan otomatis
+function buatLinkWhatsApp(jenisPembayaran) {
+  const nomor = "6283833349662";
+  const totalHarga = document.getElementById("total-price").innerText || "Rp 0";
+  const pesan = `Halo, saya ingin melakukan pemesanan.%0A%0ANama: ${pembeli.nama}%0AJam: ${pembeli.waktuAmbil}%0AHarga Total: ${totalHarga}%0AJenis Pembayaran: ${jenisPembayaran}`;
+  return `https://wa.me/${nomor}?text=${pesan}`;
+}
+
+// Event ketika link diklik
+document.getElementById("tunai-link").addEventListener("click", function () {
+  this.href = buatLinkWhatsApp("Tunai");
+});
+
+document.getElementById("qris-link").addEventListener("click", function () {
+  this.href = buatLinkWhatsApp("QRIS");
+});

@@ -60,8 +60,7 @@ document.querySelector(".tab").innerHTML = `<p class="all">All Menu</p>${[
   ...new Set(
     [...document.querySelectorAll(".category")].map(
       (c) =>
-        `<p class="${c.textContent.toLowerCase().replace(" ", "")}">${
-          c.textContent
+        `<p class="${c.textContent.toLowerCase().replace(" ", "")}">${c.textContent
         }</p>`
     )
   ),
@@ -285,7 +284,7 @@ function updatePrice(quantity) {
   const priceElement = document.querySelector(".price");
   const price = parseInt(priceElement.getAttribute("value"));
   const sizeSelect = document.querySelector(".popup .size select");
-  if (sizeSelect){
+  if (sizeSelect) {
     const calculateTotalPrice = () => {
       let multiplier = 1;
       if (sizeSelect && sizeSelect.value === "Medium") {
@@ -293,15 +292,15 @@ function updatePrice(quantity) {
       } else if (sizeSelect && sizeSelect.value === "Large") {
         multiplier = 1.5;
       }
-      const totalPrice = (price * multiplier) * quantity ;
+      const totalPrice = (price * multiplier) * quantity;
       priceElement.textContent = "Rp " + totalPrice.toLocaleString("id-ID");
       priceElement.setAttribute("priceValue", totalPrice);
-      
+
     };
     sizeSelect.addEventListener("change", calculateTotalPrice);
     calculateTotalPrice();
   } else {
-    const totalPrice = price * quantity ;
+    const totalPrice = price * quantity;
     priceElement.textContent = "Rp " + totalPrice.toLocaleString("id-ID");
     priceElement.setAttribute("priceValue", totalPrice);
     // priceElement.setAttribute("value", totalPrice);
@@ -330,3 +329,26 @@ function fadeIn(el, display) {
     }
   })();
 }
+
+// Data pembeli
+const pembeli = {
+  nama: "Nama Pembeli",
+  waktuAmbil: "15.00 WIB", // Atur sesuai kebutuhan dinamis jika mau
+};
+
+// Fungsi buat WhatsApp link dengan pesan otomatis
+function buatLinkWhatsApp(jenisPembayaran) {
+  const nomor = "6283833349662";
+  const totalHarga = document.getElementById("total-price").innerText || "Rp 0";
+  const pesan = `Halo, saya ingin melakukan pemesanan.%0A%0ANama: ${pembeli.nama}%0AJam: ${pembeli.waktuAmbil}%0AHarga Total: ${totalHarga}%0AJenis Pembayaran: ${jenisPembayaran}`;
+  return `https://wa.me/${nomor}?text=${pesan}`;
+}
+
+// Event ketika link diklik
+document.getElementById("tunai-link").addEventListener("click", function () {
+  this.href = buatLinkWhatsApp("Tunai");
+});
+
+document.getElementById("qris-link").addEventListener("click", function () {
+  this.href = buatLinkWhatsApp("QRIS");
+});
