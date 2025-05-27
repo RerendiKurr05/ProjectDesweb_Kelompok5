@@ -141,6 +141,35 @@ section h2.sec-title {
 }
 
 /* Gallery */
+/* Add to your index.css or in a <style> tag */
+.best-products-wrap {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+.product-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1rem;
+  text-align: center;
+  width: 180px;
+}
+.product-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.product-card h3 {
+  margin: 0.5rem 0 0.2rem 0;
+  font-size: 1.1rem;
+}
+.product-card p {
+  color: #b3001e;
+  font-weight: bold;
+}
 
 #gallery .wrap {
   max-width: 1100px;
