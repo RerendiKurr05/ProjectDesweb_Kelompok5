@@ -251,7 +251,6 @@ section h2.sec-title {
   font-size: var(--text-xl);
   line-height: normal;
   margin-top: 10px;
-  margin-top: 10px;
 }
 
 #testimonial .slider .slider-wrapper .slide .card::after {
@@ -259,17 +258,11 @@ section h2.sec-title {
   font-size: 7rem;
   font-weight: bold;
   line-height: 0;
-  font-size: 7rem;
-  font-weight: bold;
-  line-height: 0;
   position: absolute;
-  bottom: 0;
-  right: 20px;
   bottom: 0;
   right: 20px;
   color: var(--primary);
   opacity: 0.5;
-  font-family: "Vesper Libre";
   font-family: "Vesper Libre";
 }
 
@@ -294,12 +287,93 @@ section h2.sec-title {
   right: 0px;
 }
 
+#testimonial .card {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+#testimonial .card:hover {
+  box-shadow: 0 4px 24px 0 rgba(70, 72, 159, 0.13);
+  transform: translateY(-6px) scale(1.03);
+}
+
 /* Section Maps */
 
 #map iframe {
   width: 100%;
   max-height: 300px;
   border-radius: 10px;
+}
+
+/* Featured Products */
+
+#featured-products .product-list {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(70, 72, 159, 0.08);
+  padding: 1.5rem;
+  width: 220px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-6px) scale(1.03);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.product-card button {
+  margin-top: 1rem;
+  background: #5291d3;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 8px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.product-card button:hover {
+  background: #4143ac;
+}
+
+/* Why Us Section */
+
+#why-us .features {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
+
+#why-us .feature {
+  background: #f4eae3;
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px 0 rgba(70, 72, 159, 0.06);
+}
+
+#why-us .feature i {
+  color: #5291d3;
+  font-size: 1.3em;
 }
 
 /* Tab Screen */

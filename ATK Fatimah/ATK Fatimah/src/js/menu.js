@@ -339,16 +339,28 @@ const pembeli = {
 // Fungsi buat WhatsApp link dengan pesan otomatis
 function buatLinkWhatsApp(jenisPembayaran) {
   const nomor = "6283833349662";
-  const totalHarga = document.getElementById("total-price").innerText || "Rp 0";
+  const totalHargaElem = document.getElementById("total-price");
+  // BUG FIX: Check if totalHargaElem exists before accessing innerText
+  const totalHarga = totalHargaElem ? totalHargaElem.innerText : "Rp 0";
   const pesan = `Halo, saya ingin melakukan pemesanan.%0A%0ANama: ${pembeli.nama}%0AJam: ${pembeli.waktuAmbil}%0AHarga Total: ${totalHarga}%0AJenis Pembayaran: ${jenisPembayaran}`;
   return `https://wa.me/${nomor}?text=${pesan}`;
 }
 
-// Event ketika link diklik
-document.getElementById("tunai-link").addEventListener("click", function () {
-  this.href = buatLinkWhatsApp("Tunai");
-});
+// BUG: Event listeners for tunaiLink and qrisLink are attached before DOM is ready, so elements may be null.
+// FIX: Wrap the event listener attachment in DOMContentLoaded.
 
-document.getElementById("qris-link").addEventListener("click", function () {
-  this.href = buatLinkWhatsApp("QRIS");
+document.addEventListener("DOMContentLoaded", function () {
+  const tunaiLink = document.getElementById("tunai-link");
+  const qrisLink = document.getElementById("qris-link");
+
+  if (tunaiLink) {
+    tunaiLink.addEventListener("click", function () {
+      this.href = buatLinkWhatsApp("Tunai");
+    });
+  }
+  if (qrisLink) {
+    qrisLink.addEventListener("click", function () {
+      this.href = buatLinkWhatsApp("QRIS");
+    });
+  }
 });
