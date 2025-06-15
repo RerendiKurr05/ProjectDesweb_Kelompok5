@@ -1,43 +1,67 @@
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelector(".mobile-nav").addEventListener("click", () => {
-    document.querySelector("header nav").classList.toggle("show");
-  });
-});
+  // Mobile nav toggle
+  const mobileNav = document.querySelector(".mobile-nav");
+  const headerNav = document.querySelector("header nav");
+  if (mobileNav && headerNav) {
+    mobileNav.addEventListener("click", () => {
+      headerNav.classList.toggle("show");
+    });
+  }
 
-window.addEventListener("DOMContentLoaded", function () {
+  // Cart count update
   function updateCartCount() {
     const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    console.log(cartItems);
     const cartCount = document.getElementById("cart-count");
     if (cartCount) {
       cartCount.textContent = cartItems.length;
     }
   }
-
   updateCartCount();
+
+  // Cart modal logic
+  const cartButton = document.querySelector(".cart-button");
+  const modal = document.getElementById("cartModal");
+  const closeButton = document.querySelector(".close");
+
+  if (cartButton && modal) {
+    cartButton.addEventListener("click", displayCartModal);
+  }
+  if (closeButton && modal) {
+    closeButton.addEventListener("click", closeModal);
+  }
+
+  // Dropdown logic
+  const dropbtn = document.getElementById("dropbtn");
+  const dropdownContent = document.getElementById("dropdown-content");
+  if (dropbtn && dropdownContent) {
+    dropbtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      dropdownContent.style.display = "block";
+    });
+
+    dropdownContent.addEventListener("click", function (event) {
+      if (event.target.tagName === "A") {
+        dropbtn.textContent = event.target.getAttribute("data-value") || dropbtn.textContent;
+        dropdownContent.style.display = "none";
+      }
+    });
+
+    // Close the dropdown if the user clicks outside of it
+    window.addEventListener("click", function (event) {
+      if (!event.target.matches("#dropbtn")) {
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        }
+      }
+    });
+  }
 });
-
-// Modals function
-
-const cartButton = document.querySelector(".cart-button");
-
-// Add a click event listener to the cart button
-cartButton.addEventListener("click", displayCartModal);
-
-// Get references to the modal and close button
-const modal = document.getElementById("cartModal");
-const closeButton = document.querySelector(".close");
-
-// Add click event listener to close button
-closeButton.addEventListener("click", closeModal);
 
 function displayCartModal() {
   const totalPriceElement = document.getElementById("total-price");
-
   const cartItemsData = JSON.parse(localStorage.getItem("cartItems")) || [];
   const cartItemsContainer = document.getElementById("cartItemsContainer");
-
-  var totalPriceAllItems = 0;
+  let totalPriceAllItems = 0;
 
   // Clear previous content
   cartItemsContainer.innerHTML = "";
@@ -55,7 +79,7 @@ function displayCartModal() {
     const imageContainer = document.createElement("div");
     imageContainer.classList.add("item-image");
     const itemImage = document.createElement("img");
-    itemImage.src = item.image; // Assuming you have imageUrl property in your cartItemsData
+    itemImage.src = item.image;
     imageContainer.appendChild(itemImage);
 
     const itemText = document.createElement("div");
@@ -72,7 +96,7 @@ function displayCartModal() {
     const itemPrice = document.createElement("p");
     itemPrice.textContent = item.price;
     itemPrice.classList.add(`item-price-${index}`);
-    itemPrice.setAttribute("value", item.originalPrice); // Store the base price for calculations
+    itemPrice.setAttribute("value", item.originalPrice);
 
     itemText.appendChild(itemName);
     itemText.appendChild(itemDescription);
@@ -105,9 +129,6 @@ function displayCartModal() {
     const minusButton = document.createElement("div");
     minusButton.classList.add("minus");
     minusButton.dataset.itemName = item.name;
-    minusButton.onclick = () => {
-      decreaseValue();
-    }; // Assuming decreaseValue is defined elsewhere
     minusButton.innerHTML = '<i class="fas fa-minus"></i>';
 
     // Create element for input field
@@ -115,50 +136,51 @@ function displayCartModal() {
     inputField.classList.add("value");
     const inputElement = document.createElement("input");
     inputElement.id = `product-amount-${index}`;
-    inputElement.value = item.quantity || 1; // Assuming you have a quantity property
+    inputElement.value = item.quantity || 1;
     inputField.appendChild(inputElement);
 
     // Create elements for plus button
     const plusButton = document.createElement("div");
     plusButton.classList.add("plus");
     plusButton.dataset.itemName = item.name;
-    plusButton.onclick = () => {
-      increaseValue();
-    }; // Assuming increaseValue is defined elsewhere
     plusButton.innerHTML = '<i class="fas fa-plus"></i>';
 
-    function decreaseValue() {
-      const inputElement = document.getElementById(`product-amount-${index}`);
+    // --- BUG FIX: Bind the correct index for increase/decrease functions ---
+    minusButton.onclick = () => {
+      decreaseValue(index);
+    };
+    plusButton.onclick = () => {
+      increaseValue(index);
+    };
+
+    function decreaseValue(idx) {
+      const inputElement = document.getElementById(`product-amount-${idx}`);
       let currentValue = parseInt(inputElement.value);
       if (currentValue > 1) {
         currentValue--;
         inputElement.value = currentValue;
-        item.quantity = currentValue; // Update the quantity in the data
-        updatePrice(currentValue);
+        cartItemsData[idx].quantity = currentValue;
+        updatePrice(idx, currentValue);
       }
     }
 
-    function increaseValue() {
-      const inputElement = document.getElementById(`product-amount-${index}`);
+    function increaseValue(idx) {
+      const inputElement = document.getElementById(`product-amount-${idx}`);
       let currentValue = parseInt(inputElement.value);
       currentValue++;
       inputElement.value = currentValue;
-      item.quantity = currentValue; // Update the quantity in the data
-      updatePrice(currentValue);
+      cartItemsData[idx].quantity = currentValue;
+      updatePrice(idx, currentValue);
     }
 
-    function updatePrice(quantity) {
-      const priceElement = document.querySelector(`.item-price-${index}`);
+    function updatePrice(idx, quantity) {
+      const priceElement = document.querySelector(`.item-price-${idx}`);
       const price = parseInt(priceElement.getAttribute("value"));
-
       const totalPrice = price * quantity;
       priceElement.textContent = "Rp " + totalPrice.toLocaleString("id-ID");
-
-      cartItemsData[index].quantity = quantity; // Update quantity in cartItemsData
-
-      cartItemsData[index].price = "Rp " + totalPrice.toLocaleString("id-ID"); // Update quantity in cartItems
+      cartItemsData[idx].price = "Rp " + totalPrice.toLocaleString("id-ID");
+      cartItemsData[idx].quantity = quantity;
       localStorage.setItem("cartItems", JSON.stringify(cartItemsData));
-
       updateTotalPrice();
     }
 
@@ -213,32 +235,11 @@ function deleteCartItem(index) {
 
 // Function to close the modal
 function closeModal() {
-  modal.style.display = "none";
+  const modal = document.getElementById("cartModal");
+  if (modal) modal.style.display = "none";
 }
 // Function to open the modal
 function openModal() {
-  modal.style.display = "flex";
+  const modal = document.getElementById("cartModal");
+  if (modal) modal.style.display = "flex";
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  const dropbtn = document.getElementById("dropbtn");
-  const dropdownContent = document.getElementById("dropdown-content");
-
-  dropbtn.addEventListener("click", function () {
-    dropdownContent.style.display = "block";
-  });
-
-  dropdownContent.addEventListener("click", function (event) {
-    dropbtn.textContent = event.target.getAttribute("data-value");
-    dropdownContent.style.display = "none";
-  });
-
-  // Close the dropdown if the user clicks outside of it
-  window.addEventListener("click", function (event) {
-    if (!event.target.matches("#dropbtn")) {
-      if (dropdownContent.style.display == "block") {
-        dropdownContent.style.display = "none";
-      }
-    }
-  });
-});

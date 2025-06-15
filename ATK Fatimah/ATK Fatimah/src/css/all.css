@@ -391,7 +391,6 @@ header a:hover {
 }
 
 .checkout span {
-  display:none;
   margin-left: 20px;
   color: white;
   background: green;
@@ -400,6 +399,61 @@ header a:hover {
   text-align: center;
   border-radius: 10px;
   padding: 10px 20px;
+}
+
+/* Cart button in modal/footer (example for uniform style) */
+.modal .modal-content #modal-footer .checkout span {
+  display: flex;
+  margin-left: 20px;
+  color: #fff;
+  background: linear-gradient(90deg, #38d39f 60%, #38b2ac 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 18px;
+  padding: 12px 0;
+  width: 220px;
+  font-size: 1.1em;
+  font-weight: 600;
+  border: 2px solid #1ec97f;
+  box-shadow: 0 2px 12px 0 rgba(56, 211, 159, 0.10);
+  transition: 0.3s all;
+  cursor: pointer;
+  outline: none;
+}
+
+.modal .modal-content #modal-footer .checkout span:hover {
+  background: #fff;
+  color: #38b2ac;
+  border: 2px solid #38b2ac;
+  box-shadow: 0 4px 24px 0 rgba(56, 178, 172, 0.18);
+}
+
+/* If you use a button instead of span for the cart, apply the same style */
+.modal .modal-content #modal-footer .checkout button {
+  color: #fff;
+  background: linear-gradient(90deg, #38d39f 60%, #38b2ac 100%);
+  border-radius: 18px;
+  padding: 12px 0;
+  width: 220px;
+  font-size: 1.1em;
+  font-weight: 600;
+  border: 2px solid #1ec97f;
+  box-shadow: 0 2px 12px 0 rgba(56, 211, 159, 0.10);
+  transition: 0.3s all;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.modal .modal-content #modal-footer .checkout button:hover {
+  background: #fff;
+  color: #38b2ac;
+  border: 2px solid #38b2ac;
+  box-shadow: 0 4px 24px 0 rgba(56, 178, 172, 0.18);
 }
 
 /* Footer */
@@ -537,6 +591,9 @@ footer .right .work-hours p span:first-child {
 
   header .logo {
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   header nav {

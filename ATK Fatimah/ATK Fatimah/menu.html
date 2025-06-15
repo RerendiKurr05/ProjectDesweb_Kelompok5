@@ -7,7 +7,6 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <link media="all" rel="stylesheet" href="./src/css/all.css" />
   <link media="all" rel="stylesheet" href="./src/css/fontawesome.css" />
-
   <link media="all" rel="stylesheet" href="./src/css/menu.css" />
   <link media="all" rel="stylesheet" href="./src/css/product.css" />
 </head>
@@ -19,23 +18,19 @@
         <i class="fas fa-bars"></i>
       </div>
       <div class="logo">
-        <a href="/">
+        <a href="./index.html">
           <img src="./assets/Logo.png" alt="Tani Kopi" />
         </a>
       </div>
       <nav>
         <div class="nav-wrap">
-
-          <a href="./index.html">Home</a>
           <a href="./menu.html">Menu</a>
           <a href="./about-us.html">About Us</a>
           <a href="./contact-us.html">Contact Us</a>
-
         </div>
       </nav>
       <div class="cart-button">
         <svg width="73" height="74" viewBox="0 0 73 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-
           <path
             d="M12.1665 12.6667H20.0249C20.6332 12.6667 20.9374 12.6667 21.1574 12.8385C21.3774 13.0103 21.4512 13.3053 21.5987 13.8955L23.7188
                22.3758C24.0138 23.5561 24.1614 24.1462 24.6014 24.4898C25.0415 24.8334 25.6498 24.8334 26.8664 24.8334H30.4165"
@@ -50,7 +45,6 @@
             stroke="#222" stroke-width="3.24444" stroke-linecap="round" />
           <circle cx="51.7082" cy="61.3334" r="3.04167" fill="#222" />
           <circle cx="27.3752" cy="61.3334" r="3.04167" fill="#222" />
-
         </svg>
         <span id="cart-count" class="cart-count"></span>
       </div>
@@ -64,7 +58,6 @@
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Cari produk..." onkeyup="searchProducts()">
       </div>
-
 
       <div class="menu-wrap">
         <div class="tab"></div>
@@ -676,7 +669,6 @@
       </div>
       <div class="checkout">
         <p id="total-price">Total: Rp 0</p>
-        <span>Check Out</span>
       </div>
     </div>
   </div>
@@ -721,12 +713,17 @@
   <style>
     .nav-wrap a {
       color: #007bff;
-      /* Gradien1*/
     }
 
     .nav-wrap a:hover {
-      color: #ed4379;
-      /* Gradien2*/
+      color: #ffcc00;
+    }
+
+    .checkout #total-price {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: var(--primary, #007bff);
+      margin-bottom: 8px;
     }
   </style>
 </body>

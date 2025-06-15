@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
@@ -11,7 +12,6 @@
       href="https://fonts.googleapis.com/css2?family=Vesper+Libre:wght@400;700&display=swap"
       rel="stylesheet"
     />
-
     <link media="all" rel="stylesheet" href="./src/css/index.css" />
     <link media="all" rel="stylesheet" href="./src/css/product.css" />
   </head>
@@ -23,18 +23,16 @@
           <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-          <a href="/">
+          <!-- BUG FIX: Use relative path for logo link, not "/" -->
+          <a href="./index.html">
             <img src="./assets/Logo.png" alt="Tani Kopi" />
           </a>
         </div>
         <nav>
-
           <div class="nav-wrap">
-            <a href="./index.html">Home</a>
             <a href="./menu.html">Menu</a>
             <a href="./about-us.html">About Us</a>
             <a href="./contact-us.html">Contact Us</a>
-            
           </div>
         </nav>
         <div class="cart-button">
@@ -81,8 +79,8 @@
             kerja, sampai perlengkapan hobi, semuanya ada di sini. Nggak cuma lengkap, kualitasnya juga terjamin, 
             dan harganya tetap bersahabat. Biar aktivitasmu makin lancar, percayakan kebutuhan alat tulismu pada ATK Fatimah."
           </p>
-          <span class="button" href="./menu.html">Beli Sekarang</span>
-          
+          <!-- BUG FIX: Use <a> for button with href, not <span> -->
+          <a class="button" href="./menu.html">Beli Sekarang</a>
         </div>
       </div>
     </section>
@@ -157,32 +155,28 @@
     </section>
 
     <section id="best">
-
-  <h2 class="sec-title">Produk Terbaik Kami</h2>
-  <div class="best-products-wrap">
-    
-    <div class="product-card">
-      <img src="./assets/products/pensil-2b.jpg" alt="Pensil 2B" />
-      <h3>Pensil 2B</h3>
-      <p>Rp 2.000</p>
-    </div>
-    <div class="product-card">
-      <img src="./assets/product-img/Blueberry-milkshake.png" alt="Penghapus" />
-      <h3>Penghapus</h3>
-      <p>Rp 1.000</p>
-    </div>
-    <div class="product-card">
-      <img src="./assets/product-img/French-fries.png" alt="Pulpen" />
-      <h3>Pulpen</h3>
-      <p>Rp 3.000</p>
-    </div>
-
-  </div>
-  <div class="more-wrap">
-    <a class="more" href="./menu.html">See all menu</a>
-  </div>
-</section>
-
+      <h2 class="sec-title">Produk Terbaik Kami</h2>
+      <div class="best-products-wrap">
+        <div class="product-card">
+          <img src="./assets/products/pensil-2b.jpg" alt="Pensil 2B" />
+          <h3>Pensil 2B</h3>
+          <p>Rp 2.000</p>
+        </div>
+        <div class="product-card">
+          <img src="./assets/product-img/Blueberry-milkshake.png" alt="Penghapus" />
+          <h3>Penghapus</h3>
+          <p>Rp 1.000</p>
+        </div>
+        <div class="product-card">
+          <img src="./assets/product-img/French-fries.png" alt="Pulpen" />
+          <h3>Pulpen</h3>
+          <p>Rp 3.000</p>
+        </div>
+      </div>
+      <div class="more-wrap">
+        <a class="more" href="./menu.html">See all menu</a>
+      </div>
+    </section>
 
     <section id="testi">
       <h2 class="sec-title">Komentar Pelanggan</h2>
@@ -233,29 +227,28 @@
           -->
 
     <!-- Modal HTML structure -->
-  <div id="cartModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Keranjang</h2>
-        <span class="close">&times;</span>
-      </div>
-      <div id="cartItemsContainer"></div>
-      <div id="modal-footer">
-        <div class="dropdown">
-          <button class="dropbtn" id="dropbtn">Bayar</button>
-          <div class="dropdown-content" id="dropdown-content">
-            <a id="tunai-link" href="#" target="_blank">Tunai</a>
-            <hr />
-            <a id="qris-link" href="#" target="_blank">QRIS</a>
+    <div id="cartModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Keranjang</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div id="cartItemsContainer"></div>
+        <div id="modal-footer">
+          <div class="dropdown">
+            <button class="dropbtn" id="dropbtn">Bayar</button>
+            <div class="dropdown-content" id="dropdown-content">
+              <a id="tunai-link" href="#" target="_blank">Tunai</a>
+              <hr />
+              <a id="qris-link" href="#" target="_blank">QRIS</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="checkout">
-        <p id="total-price">Total: Rp 0</p>
-        <span>Check Out</span>
+        <div class="checkout">
+          <p id="total-price">Total: Rp 0</p>
+        </div>
       </div>
     </div>
-  </div>
 
     <footer>
       <div class="footer-wrap">
@@ -306,7 +299,6 @@
     <script src="./src/js/index.js"></script>
     <script src="./src/js/all.js"></script>
     <style>
-
       .nav-wrap a {
   color: #007bff; /* Gradien1*/
 }

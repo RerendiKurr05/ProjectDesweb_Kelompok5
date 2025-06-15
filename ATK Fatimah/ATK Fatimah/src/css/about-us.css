@@ -251,7 +251,6 @@ section h2.sec-title {
   font-size: var(--text-xl);
   line-height: normal;
   margin-top: 10px;
-  margin-top: 10px;
 }
 
 #testimonial .slider .slider-wrapper .slide .card::after {
@@ -259,17 +258,11 @@ section h2.sec-title {
   font-size: 7rem;
   font-weight: bold;
   line-height: 0;
-  font-size: 7rem;
-  font-weight: bold;
-  line-height: 0;
   position: absolute;
-  bottom: 0;
-  right: 20px;
   bottom: 0;
   right: 20px;
   color: var(--primary);
   opacity: 0.5;
-  font-family: "Vesper Libre";
   font-family: "Vesper Libre";
 }
 
