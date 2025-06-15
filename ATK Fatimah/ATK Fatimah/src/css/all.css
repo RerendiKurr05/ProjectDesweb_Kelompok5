@@ -406,7 +406,7 @@ header a:hover {
   display: flex;
   margin-left: 20px;
   color: #fff;
-  background: linear-gradient(90deg, #38d39f 60%, #38b2ac 100%);
+  background: linear-gradient(90deg, #1d45b0 60%, #4a4aca 100%);
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -415,7 +415,7 @@ header a:hover {
   width: 220px;
   font-size: 1.1em;
   font-weight: 600;
-  border: 2px solid #1ec97f;
+  border: 2px solid #2933b2;
   box-shadow: 0 2px 12px 0 rgba(56, 211, 159, 0.10);
   transition: 0.3s all;
   cursor: pointer;
@@ -424,21 +424,21 @@ header a:hover {
 
 .modal .modal-content #modal-footer .checkout span:hover {
   background: #fff;
-  color: #38b2ac;
-  border: 2px solid #38b2ac;
+  color: #3024b5;
+  border: 2px solid #386bb2;
   box-shadow: 0 4px 24px 0 rgba(56, 178, 172, 0.18);
 }
 
 /* If you use a button instead of span for the cart, apply the same style */
 .modal .modal-content #modal-footer .checkout button {
   color: #fff;
-  background: linear-gradient(90deg, #38d39f 60%, #38b2ac 100%);
+  background: linear-gradient(90deg, #2c5ec900 60%, #34349b00 100%);
   border-radius: 18px;
   padding: 12px 0;
   width: 220px;
   font-size: 1.1em;
   font-weight: 600;
-  border: 2px solid #1ec97f;
+  border: 2px solid #1e29c9;
   box-shadow: 0 2px 12px 0 rgba(56, 211, 159, 0.10);
   transition: 0.3s all;
   cursor: pointer;
@@ -451,8 +451,8 @@ header a:hover {
 
 .modal .modal-content #modal-footer .checkout button:hover {
   background: #fff;
-  color: #38b2ac;
-  border: 2px solid #38b2ac;
+  color: #25e218;
+  border: 2px solid #18e244;
   box-shadow: 0 4px 24px 0 rgba(56, 178, 172, 0.18);
 }
 
