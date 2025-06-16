@@ -82,38 +82,4 @@ setTimeout(() => {
   document.body.appendChild(scriptElement);
 }, 5000);
 
-// Data pembeli
-const pembeli = {
-  nama: "Nama Pembeli",
-  waktuAmbil: "15.00 WIB", // Atur sesuai kebutuhan dinamis jika mau
-};
 
-// Fungsi buat WhatsApp link dengan pesan otomatis
-function buatLinkWhatsApp(jenisPembayaran) {
-  const nomor = "6283833349662";
-  const totalHargaElem = document.getElementById("total-price");
-  // BUG: If #total-price does not exist, .innerText will throw error
-  // FIX: Check if totalHargaElem exists before accessing innerText
-  const totalHarga = totalHargaElem ? totalHargaElem.innerText : "Rp 0";
-  const pesan = `Halo, saya ingin melakukan pemesanan.%0A%0ANama: ${pembeli.nama}%0AJam: ${pembeli.waktuAmbil}%0AHarga Total: ${totalHarga}%0AJenis Pembayaran: ${jenisPembayaran}`;
-  return `https://wa.me/${nomor}?text=${pesan}`;
-}
-
-// Event ketika link diklik
-document.addEventListener("DOMContentLoaded", function () {
-  const tunaiLink = document.getElementById("tunai-link");
-  const qrisLink = document.getElementById("qris-link");
-
-  // BUG: If these elements do not exist, addEventListener will throw error
-  // FIX: Check if elements exist before adding event listeners
-  if (tunaiLink) {
-    tunaiLink.addEventListener("click", function (e) {
-      this.href = buatLinkWhatsApp("Tunai");
-    });
-  }
-  if (qrisLink) {
-    qrisLink.addEventListener("click", function (e) {
-      this.href = buatLinkWhatsApp("QRIS");
-    });
-  }
-});
