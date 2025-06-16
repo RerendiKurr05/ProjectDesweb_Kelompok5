@@ -298,3 +298,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.onload = updateCartCount;
+
+const cartButtons = document.querySelectorAll('.add');
+cartButtons.forEach(btn => {
+  btn.onclick = function(e) {
+    e.preventDefault();
+  };
+});
