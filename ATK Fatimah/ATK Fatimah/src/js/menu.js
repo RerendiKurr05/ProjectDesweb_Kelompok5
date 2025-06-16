@@ -149,6 +149,61 @@ function beforeHTML(selector, html) {
   });
 }
 
+
+// Function to create and show modern notification
+function showNotification(title, message, type = 'success') {
+  // Remove existing notification if any
+  const existingNotification = document.querySelector('.modern-notification');
+  if (existingNotification) {
+    existingNotification.remove();
+  }
+
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.className = `modern-notification ${type}`;
+  
+  // Set notification content
+  notification.innerHTML = `
+    <div class="notification-content">
+      <div class="notification-icon">
+        ${type === 'success' ? '🛒' : '⚠️'}
+      </div>
+      <div class="notification-text">
+        <div class="notification-title">${title}</div>
+        <div class="notification-message">${message}</div>
+      </div>
+      <button class="notification-close" onclick="closeNotification()">×</button>
+    </div>
+  `;
+
+  // Add notification to body
+  document.body.appendChild(notification);
+
+  // Show notification with animation
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10);
+
+  // Auto hide after 4 seconds
+  setTimeout(() => {
+    closeNotification();
+  }, 4000);
+}
+
+// Function to close notification
+function closeNotification() {
+  const notification = document.querySelector('.modern-notification');
+  if (notification) {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.remove();
+      }
+    }, 300);
+  }
+}
+
+// Modified addToCart function with modern notification
 function addToCart() {
   const productName = document.querySelector(".popup h3").textContent;
   const productPrice = document.querySelector(".popup .price").textContent;
@@ -186,8 +241,8 @@ function addToCart() {
   // Save the updated cart items back to localStorage
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-  // Optionally, you can provide feedback to the user
-  alert("Product added to cart!");
+  // Show modern notification instead of alert
+  showNotification("Berhasil!", "Produk ditambahkan ke keranjang");
   closePopup();
 }
 
@@ -330,37 +385,94 @@ function fadeIn(el, display) {
   })();
 }
 
-// Data pembeli
-const pembeli = {
-  nama: "Nama Pembeli",
-  waktuAmbil: "15.00 WIB", // Atur sesuai kebutuhan dinamis jika mau
-};
+// Fungsi untuk mendapatkan daftar barang dari cart
+function getDaftarBarang() {
+  const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+  if (cartItems.length === 0) {
+    return "Tidak ada barang";
+  }
+  
+  return cartItems.map((item, index) => {
+    return `${index + 1}. ${item.name} x${item.quantity} - ${item.price}`;
+  }).join("%0A");
+}
 
-// Fungsi buat WhatsApp link dengan pesan otomatis
+// Fungsi untuk menghitung total harga dari cart
+function hitungTotalHarga() {
+  const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+  let total = 0;
+  
+  cartItems.forEach(item => {
+    // Ambil harga dari string dan convert ke number
+    const harga = parseInt(item.originalPrice) || 0;
+    const quantity = parseInt(item.quantity) || 0;
+    total += harga * quantity;
+  });
+  
+  return "Rp " + total.toLocaleString("id-ID");
+}
+
+// Fungsi buat WhatsApp link dengan pesan otomatis - UPDATED
 function buatLinkWhatsApp(jenisPembayaran) {
-  const nomor = "6283833349662";
-  const totalHargaElem = document.getElementById("total-price");
-  // BUG FIX: Check if totalHargaElem exists before accessing innerText
-  const totalHarga = totalHargaElem ? totalHargaElem.innerText : "Rp 0";
-  const pesan = `Halo, saya ingin melakukan pemesanan.%0A%0ANama: ${pembeli.nama}%0AJam: ${pembeli.waktuAmbil}%0AHarga Total: ${totalHarga}%0AJenis Pembayaran: ${jenisPembayaran}`;
+  const nomor = "6283833349662"; // Ganti dengan nomor WhatsApp Anda
+  
+  // Ambil data dari cart
+  const daftarBarang = getDaftarBarang();
+  const totalHarga = hitungTotalHarga();
+  
+  // Format pesan WhatsApp
+  const pesan = `Halo, saya ingin melakukan pemesanan.%0A%0A` +
+               `*Nama :* %0A` +
+               `*Jam diambil :* %0A%0A` +
+               `*Barang yang dibeli :*%0A${daftarBarang}%0A%0A` +
+               `*Harga total :* ${totalHarga}%0A` +
+               `*Pembayaran :* ${jenisPembayaran}`;
+  
   return `https://wa.me/${nomor}?text=${pesan}`;
 }
 
-// BUG: Event listeners for tunaiLink and qrisLink are attached before DOM is ready, so elements may be null.
-// FIX: Wrap the event listener attachment in DOMContentLoaded.
-
+// Event listeners untuk tombol pembayaran
 document.addEventListener("DOMContentLoaded", function () {
   const tunaiLink = document.getElementById("tunai-link");
   const qrisLink = document.getElementById("qris-link");
 
   if (tunaiLink) {
-    tunaiLink.addEventListener("click", function () {
-      this.href = buatLinkWhatsApp("Tunai");
+    tunaiLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      
+      // Cek apakah ada barang di cart
+      const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+      if (cartItems.length === 0) {
+        alert("Keranjang belanja kosong! Silakan tambahkan produk terlebih dahulu.");
+        return;
+      }
+      
+      // Redirect ke WhatsApp
+      const whatsappUrl = buatLinkWhatsApp("Tunai");
+      window.open(whatsappUrl, '_blank');
+      
+      // Optional: Clear cart setelah redirect
+      // localStorage.removeItem("cartItems");
     });
   }
+  
   if (qrisLink) {
-    qrisLink.addEventListener("click", function () {
-      this.href = buatLinkWhatsApp("QRIS");
+    qrisLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      
+      // Cek apakah ada barang di cart
+      const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+      if (cartItems.length === 0) {
+        alert("Keranjang belanja kosong! Silakan tambahkan produk terlebih dahulu.");
+        return;
+      }
+      
+      // Redirect ke WhatsApp
+      const whatsappUrl = buatLinkWhatsApp("QRIS");
+      window.open(whatsappUrl, '_blank');
+      
+      // Optional: Clear cart setelah redirect
+      // localStorage.removeItem("cartItems");
     });
   }
 });
