@@ -31,6 +31,7 @@
         </div>
         <nav>
           <div class="nav-wrap">
+            <a href="./index.html">Home</a>
             <a href="./menu.html">Menu</a>
             <a href="./about-us.html">About Us</a>
             <a href="./contact-us.html">Contact Us</a>
@@ -160,18 +161,20 @@
     </section>
 
     <section id="best">
-      <h2 class="sec-title">Produk Terbaik Kami</h2>
+      <h2 class="sec-title">Produk Best Seller Kami</h2>
       <div class="best-products-wrap">
         <div class="product-card">
-          <img src="./assets/products/pensil-2b.jpg" alt="Pensil 2B" />
-          <h3>Pensil 2B</h3>
-          <p>Rp 2.000</p>
+          <img src="./assets/product-img/Red-velvet-cake.png" alt="Tipe X" />
+          <h3>Tipe X</h3>
+          <p>Rp 3.000</p>
         </div>
+
         <div class="product-card">
           <img src="./assets/product-img/Blueberry-milkshake.png" alt="Penghapus" />
           <h3>Penghapus</h3>
           <p>Rp 1.000</p>
         </div>
+        
         <div class="product-card">
           <img src="./assets/product-img/French-fries.png" alt="Pulpen" />
           <h3>Pulpen</h3>
@@ -231,29 +234,50 @@
           ></iframe>
           -->
 
-    <!-- Modal HTML structure -->
-    <div id="cartModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>Keranjang</h2>
-          <span class="close">&times;</span>
+   <!-- Modal HTML structure -->
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-shopping-cart"></i> Keranjang</h2>
+        <span class="close" title="Tutup">&times;</span>
+      </div>
+      <div id="cartItemsContainer">
+        <!-- Contoh item keranjang -->
+        <div class="cart-item" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="assets/sample-product.jpg" alt="Produk" style="width:48px;height:48px;object-fit:cover;border-radius:8px;">
+            <div>
+              <div style="font-weight:600;">Pensil 2B</div>
+              <div style="font-size:0.95em;color:#888;">Rp 5.000</div>
+            </div>
+          </div>
+          <div class="cart-item-controls">
+            <button class="cart-item-amount-btn" title="Kurangi"><i class="fas fa-minus"></i></button>
+            <span style="min-width:24px;display:inline-block;text-align:center;">2</span>
+            <button class="cart-item-amount-btn" title="Tambah"><i class="fas fa-plus"></i></button>
+            <button class="cart-item-remove-btn" title="Hapus"><i class="fas fa-trash"></i></button>
+          </div>
         </div>
-        <div id="cartItemsContainer"></div>
-        <div id="modal-footer">
-          <div class="dropdown">
-            <button class="dropbtn" id="dropbtn">Bayar</button>
-            <div class="dropdown-content" id="dropdown-content">
-              <a id="tunai-link" href="#" target="_blank">Tunai</a>
+        <!-- Tambahkan item lain di sini -->
+      </div>
+      <div id="modal-footer">
+        <div class="checkout">
+          <p id="total-price">Total: <span>Rp 10.000</span></p>
+          <div class="dropdown" style="position:relative;">
+            <button class="dropbtn" id="dropbtn"><i class="fas fa-cash-register"></i> Bayar</button>
+            <div class="dropdown-content" id="dropdown-content" style="display:none;position:absolute;right:0;">
+              <a id="tunai-link" href="#" target="_blank">
+                <img src="./assets/tunai-icon.png" alt="TUNAI"> TUNAI
               <hr />
-              <a id="qris-link" href="#" target="_blank">QRIS</a>
+              <a id="qris-link" href="#" target="_blank">
+                <img src="./assets/qris-icon.png" alt="QRIS"> QRIS
+              </a>
             </div>
           </div>
         </div>
-        <div class="checkout">
-          <p id="total-price">Total: Rp 0</p>
-        </div>
       </div>
     </div>
+  </div>
 
     <footer>
       <div class="footer-wrap">
