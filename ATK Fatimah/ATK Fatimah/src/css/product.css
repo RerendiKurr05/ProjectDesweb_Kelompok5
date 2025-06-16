@@ -424,9 +424,6 @@ body.ov {
   }
 }
 
-/* ====== Fresh & Consistent Animations ====== */
-
-/* Fade-in for product cards */
 .menu-list .product {
   opacity: 0;
   transform: translateY(30px) scale(0.98);
@@ -630,7 +627,7 @@ body.ov {
   position: relative;
   width: 100%;
   max-width: 540px;
-  min-width: 320px;
+  min-width: px;
   min-height: 340px;
   display: flex;
   flex-direction: column;
@@ -647,7 +644,7 @@ body.ov {
 #cartModal .modal-header {
   background: linear-gradient(90deg, #5291d3 60%, #46489f 100%);
   color: #fff;
-  border-radius: 18px 18px 0 0;
+  border-radius: 10px 10px 0 0;
   padding: 18px 28px 12px 28px;
   display: flex;
   align-items: center;

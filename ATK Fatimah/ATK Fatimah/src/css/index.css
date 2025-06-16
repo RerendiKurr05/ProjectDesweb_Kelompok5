@@ -16,9 +16,10 @@ section h2.sec-title {
   text-align: center;
 }
 
-.more {
+.more,
+a.more {
   cursor: pointer;
-  transition: 0.1s all;
+  transition: 0.1s all, background 0.3s, color 0.3s;
   font-family: "Vesper Libre", serif;
   text-align: center;
   display: inline-block;
@@ -30,9 +31,20 @@ section h2.sec-title {
   border: 1px solid var(--primary);
 }
 
-.more:hover {
-  background: transparent;
-  color: var(--text-color);
+.more:hover,
+a.more:hover {
+  background: linear-gradient(90deg, #42a5f5 0%, #90caf9 100%);
+  color: #fff;
+  border-color: #42a5f5;
+  transition: background 0.2s, color 0.2s;
+}
+
+.more:active,
+a.more:active {
+  background: linear-gradient(90deg, #1a237e 0%, #0d47a1 100%);
+  color: #fff;
+  border-color: #0d47a1;
+  transition: background 0.2s, color 0.2s;
 }
 
 /* Section: Hero */
