@@ -116,34 +116,48 @@ function beforeHTML(selector, html) {
   document.querySelectorAll(selector).forEach(el => el.insertAdjacentHTML("beforebegin", html));
 }
 
-function showNotification(title, message, type = 'success') {
-  const existing = document.querySelector('.modern-notification');
-  if (existing) existing.remove();
+function showNotification(type = "success", title = "Berhasil", message = "Barang berhasil ditambahkan ke keranjang") {
+  // Hapus notifikasi lama jika ada
+  const existingNotif = document.querySelector(".modern-notification");
+  if (existingNotif) {
+    existingNotif.remove();
+  }
 
-  const notif = document.createElement('div');
+  // Buat elemen notifikasi
+  const notif = document.createElement("div");
   notif.className = `modern-notification ${type}`;
+
   notif.innerHTML = `
     <div class="notification-content">
-      <div class="notification-icon">${type === 'success' ? '🛒' : '⚠'}</div>
+      <div class="notification-icon">✔️</div>
       <div class="notification-text">
         <div class="notification-title">${title}</div>
         <div class="notification-message">${message}</div>
       </div>
-      <button class="notification-close" onclick="closeNotification()">×</button>
-    </div>`;
+      <button class="notification-close">&times;</button>
+    </div>
+  `;
 
   document.body.appendChild(notif);
-  setTimeout(() => notif.classList.add('show'), 10);
-  setTimeout(() => closeNotification(), 4000);
+
+  // Tampilkan notifikasi
+  setTimeout(() => {
+    notif.classList.add("show");
+  }, 10);
+
+  // Sembunyikan setelah 3 detik
+  setTimeout(() => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 300);
+  }, 3000);
+
+  // Tombol close manual
+  notif.querySelector(".notification-close").addEventListener("click", () => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 300);
+  });
 }
 
-function closeNotification() {
-  const notif = document.querySelector('.modern-notification');
-  if (notif) {
-    notif.classList.remove('show');
-    setTimeout(() => notif.remove(), 300);
-  }
-}
 
 function updateCartCount() {
   const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -176,9 +190,10 @@ function addToCart() {
 
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
   updateCartCount();
-  alert("Barang berhasil masuk ke keranjang!");
+  
   closePopup();
   window.location.reload();
+  
 }
 
 beforeHTML(".price", `
@@ -297,4 +312,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+showNotification("success", "Berhasil", "Produk telah masuk ke keranjang!");
 window.onload = updateCartCount;
